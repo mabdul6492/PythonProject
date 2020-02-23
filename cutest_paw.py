@@ -108,6 +108,6 @@ if __name__ == "__main__":
         download_image(index, all_cats_list)
         process_image(index, all_cats_list)
         end = time.time()
-        print(end - start)
+        print(f'Page {index + 1} Takes {end - start} Seconds to Complete')
 
     print("Thank You for Scraping with us")
