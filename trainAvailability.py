@@ -3,15 +3,16 @@ import time
 from datetime import date
 
 
-class CheckingBot():
+class CheckingBot:
 
     def __init__(self, train_number, date, class_):
         self.train_number = train_number
-        self.driver = webdriver.PhantomJS()
+        self.driver = webdriver.PhantomJS(
+            executable_path="/usr/local/bin/phantomjs-2.1.1-linux-x86_64/bin/phantomjs")
         self.date = date
         self.class_ = class_
 
-    def checkConnection(self):
+    def check_connection(self):
         driver = self.driver
         train_number = self.train_number
 
@@ -22,7 +23,7 @@ class CheckingBot():
         except:
             return False
 
-    def fromStations(self, fromStationNo):
+    def from_stations(self, from_station_no):
         driver = self.driver
 
         driver.find_element_by_id('mat-select-0').click()
@@ -84,7 +85,7 @@ def takeInput():
 
         # Taking Input of travelling date and calculating the total number of days between travelling date and current date.
         travel_date, travel_month = [int(x) for x in input(
-            'Enter the Preferred Date in the format dd/mm: ').split('/')]
+            'Enter the Travelling Date in the format dd/mm: ').split('/')]
         month_days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
         today_date, this_month = [int(x)
                                   for x in date.today().strftime("%d/%m").split('/')]
@@ -111,7 +112,7 @@ if __name__ == "__main__":
 
     # Creating Object of CheckingBot and Establishing Connection.
     checking = CheckingBot(train_number, total_days, class_)
-    print("Waiting for the serve's response...")
+    print("Waiting for the server's response...")
     status = checking.checkConnection()
     fromStationNo = 0
     toStationNo = 74
@@ -140,3 +141,4 @@ if __name__ == "__main__":
         print('Server not Responding')
 
     checking.closeBrowser()
+
